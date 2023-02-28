@@ -32,7 +32,8 @@
     "release": "npm run build && npm run app build"
   },
   "dependencies": {
-    "@xdh/my": "^4.2.5",
+    "@xdh/my": "^4.2.12",
+    "element-ui": "^2.15.13",
     "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {
@@ -59,7 +60,7 @@
     "fibers": "^5.0.0",
     "jsdoc": "^3.6.5",
     "node-sass": "^5.0.0",
-    "sass-loader": "^10.1.0",
+    "sass-loader": "^10.4.1",
     "vue-template-compiler": "^2.6.12",
     "vuepress": "^1.7.1"
   },
