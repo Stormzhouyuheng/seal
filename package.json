@@ -34,6 +34,7 @@
   "dependencies": {
     "@xdh/my": "^4.2.12",
     "element-ui": "^2.15.13",
+    "ol": "^7.3.0",
     "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {

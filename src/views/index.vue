@@ -1,5 +1,5 @@
 <template>
-    <my-wrapper fit title="项目模板首页示例"></my-wrapper>
+    <my-map></my-map>
 </template>
 
 <script>
