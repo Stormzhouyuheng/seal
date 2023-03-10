@@ -4,15 +4,16 @@
                 lock
                 fit>
 
-                <my-dv-page target="parent" fit>
-
+                <!-- 整个项目的边框 -->
                 <my-dv-border6 x-align="center"
                         y-align="middle"
                         width="100%"
                         height="100%">
 
+                            <!-- 标题 -->
                             <my-dv-header4>数据可视化大屏页面</my-dv-header4>
 
+                            <!-- 放置地图的边框 -->
                             <my-dv-border5 
                                             x-align="center"
                                             top="80px"
@@ -23,8 +24,7 @@
                             </my-dv-border5>
                         
                 </my-dv-border6>
-            
-        </my-dv-page>
+                
     </my-dv-page>
 </template>
 
