@@ -1,29 +1,31 @@
 <template>
-    <div class="wholeItem">
+    <my-dv-page target="parent"
+                scale
+                lock
+                fit>
 
-        <my-dv-page target="parent" fit>
+                <my-dv-page target="parent" fit>
 
-            <my-dv-border6 x-align="center"
-                      y-align="middle"
-                      width="100%"
-                      height="100%">
+                <my-dv-border6 x-align="center"
+                        y-align="middle"
+                        width="100%"
+                        height="100%">
 
-                        <my-dv-header4>数据可视化大屏页面</my-dv-header4>
+                            <my-dv-header4>数据可视化大屏页面</my-dv-header4>
 
-                        <my-dv-border5 
-                                        x-align="center"
-                                        top="80px"
-                                        padding="5px"
-                                        width="calc(100% - 20px)"
-                                        height="calc(100% - 90px)">
-                                        <Map></Map>
-                        </my-dv-border5>
-                      
-            </my-dv-border6>
+                            <my-dv-border5 
+                                            x-align="center"
+                                            top="80px"
+                                            padding="5px"
+                                            width="calc(100% - 20px)"
+                                            height="calc(100% - 90px)">
+                                            <Map></Map>
+                            </my-dv-border5>
+                        
+                </my-dv-border6>
             
         </my-dv-page>
-        
-    </div>
+    </my-dv-page>
 </template>
 
 <script>
@@ -36,8 +38,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .wholeItem {
-        width: 100%;
-        height: 100%;
-    }
+
 </style>
