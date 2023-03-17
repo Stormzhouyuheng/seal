@@ -34,6 +34,7 @@
         components: {
             Map
         }
+        
     }
 </script>
 
