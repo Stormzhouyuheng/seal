@@ -17,6 +17,9 @@ const center = [109.3, 23]
 // 默认投影标准
 const projection = 'EPSG:4326'
 
+// 静态图片范围
+const extent = [99.1901181, 14.630101719999999, 118.0827480425, 30.3655968625]
+
 const view = new View({
     center,
     projection,
@@ -33,6 +36,7 @@ export default {
     minZoom,
     maxZoom,
     center,
-    projection
+    projection,
+    extent
 
 }

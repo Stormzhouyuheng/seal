@@ -1,16 +1,21 @@
 <template>
-    <my-map
-            id="map"
-            ref="map"
-            height="100%"
-            :zoom="mapConfig.zoom"
-            :minZoom="mapConfig.minZoom"
-            :maxZoom="mapConfig.maxZoom"></my-map>
-            <!-- @ready="ready" -->
+    <div id="my-map">
+        <my-map
+                id="map"
+                ref="map"
+                width="100%"
+                height="100%"
+                :zoom="mapConfig.zoom"
+                :center="mapConfig.center"
+                :minZoom="mapConfig.minZoom"
+                :maxZoom="mapConfig.maxZoom"
+                :mapOptions="mapOptions"
+                @ready="ready"></my-map>
+    </div>
+    
 </template>
 
 <script>
-    // import mapConfig from './config/map.config.js'
     import ready from '@/mixin/map/ready.js';
     export default {
         mixins: [ready]
@@ -18,5 +23,15 @@
 </script>
 
 <style lang="scss" scoped>
+    @import '@/assets/style/map/index.scss';
+
+    #my-map {
+        /deep/.ol-viewport {
+            // background: url("../../assets/images/bg1.png") no-repeat center center;
+            // background: #1dc5f6;
+            background-size: cover;
+        }
+
+    }
 
 </style>
