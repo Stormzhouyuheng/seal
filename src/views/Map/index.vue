@@ -27,11 +27,8 @@
 
     #my-map {
         /deep/.ol-viewport {
-            // background: url("../../assets/images/bg1.png") no-repeat center center;
-            // background: #1dc5f6;
             background-size: cover;
         }
-
     }
 
 </style>
