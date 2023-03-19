@@ -17,3 +17,24 @@ npm run dev
 ```
 npm run build
 ```
+
+## README.md
+```
+@xdh\my\ui\lib\map\packages\my-map\Map.js （修改的地方）
+
+this.map = new Map({
+    ...(this.mapOptions || {}),
+    layers: [].concat(layer),
+    view: view,
+    target: this.$el,
+    // 删除默认的控件
+    controls: [],
+    interactions: [
+    new DragPan(),
+    new MouseWheelZoom(),
+    new PointerInteraction({
+        handleEvent: this.handleEvent
+    })
+    ]
+})
+```
