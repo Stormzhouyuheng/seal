@@ -11,14 +11,23 @@
                 :maxZoom="mapConfig.maxZoom"
                 :mapOptions="mapOptions"
                 @ready="ready"></my-map>
+                
+                <MapUtil></MapUtil>
     </div>
     
 </template>
 
 <script>
     import ready from '@/mixin/map/ready.js';
+
+    // 地图工具
+    import MapUtil from '@/components/MapUtil'
+
     export default {
-        mixins: [ready]
+        mixins: [ready],
+        components: {
+            MapUtil
+        }
     }
 </script>
 
