@@ -1,7 +1,8 @@
 import mapConfig from '@/views/Map/config/map.config'
 
 import { Image as ImageLayer } from 'ol/layer';
-import { ImageStatic } from 'ol/source';
+import { ImageStatic, TileArcGISRest } from 'ol/source';
+import TileLayer from 'ol/layer/Tile.js';
 
 // import mapConfig from '@/views/Map/config/map.config'
 
@@ -19,9 +20,20 @@ class Layers {
             }),
             ...option
         })
-        
     }
 
+    // 加载arcgis地图服务
+    createArcGISLayer(url, option, layers) {
+        return new TileLayer({
+            source: new TileArcGISRest({
+                url
+                // params: {
+                //     layers
+                // }
+            }),
+            ...option
+        })
+    }
 }
 
 export default new Layers()
