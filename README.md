@@ -1,40 +1,27 @@
-## 安装
+# signature
+
+## Project setup
 ```
 npm install
 ```
 
-## 启动文档站点
+### Compiles and hot-reloads for development
 ```
-npm run start
-```
-
-## 运行开发环境
-```
-npm run dev
+npm run serve
 ```
 
-## 编译主应用
+### Compiles and minifies for production
 ```
 npm run build
 ```
 
-## README.md
+### Lints and fixes files
 ```
-@xdh\my\ui\lib\map\packages\my-map\Map.js （修改的地方）
+npm run lint
+```
 
-this.map = new Map({
-    ...(this.mapOptions || {}),
-    layers: [].concat(layer),
-    view: view,
-    target: this.$el,
-    // 删除默认的控件
-    controls: [],
-    interactions: [
-    new DragPan(),
-    new MouseWheelZoom(),
-    new PointerInteraction({
-        handleEvent: this.handleEvent
-    })
-    ]
-})
-```
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### 在线生成印章工具地址
+https://tools.kalvinbg.cn/convenience/seal

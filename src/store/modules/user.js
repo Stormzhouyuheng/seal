@@ -1,0 +1,136 @@
+import { login, logout, getInfo, refreshToken } from '@/api/login'
+import { getToken, setToken, setExpiresIn, removeToken } from '@/utils/auth'
+import { encrypt } from '@/utils/jsencrypt'
+
+const user = {
+  state: {
+    token: getToken(),
+    name: '',
+    nickName: '',
+    avatar: '',
+    roles: [],
+    permissions: [],
+    userInfo: {}
+  },
+
+  mutations: {
+    SET_TOKEN: (state, token) => {
+      state.token = token
+    },
+    SET_EXPIRES_IN: (state, time) => {
+      state.expires_in = time
+    },
+    SET_NAME: (state, name) => {
+      state.name = name
+    },
+    SET_NICK_NAME: (state, nickName) => {
+      state.nickName = nickName
+    },
+    SET_AVATAR: (state, avatar) => {
+      state.avatar = avatar
+    },
+    SET_ROLES: (state, roles) => {
+      state.roles = roles
+    },
+    SET_PERMISSIONS: (state, permissions) => {
+      state.permissions = permissions
+    },
+    SET_USERINFO: (state, info) => {
+      state.userInfo = info
+    }
+  },
+
+  actions: {
+    // 登录
+    Login({ commit }, userInfo) {
+      const username = userInfo.username.trim()
+      const password = encrypt(userInfo.password);
+      // const password = userInfo.password;
+      const code = userInfo.code
+      const uuid = userInfo.uuid
+      return new Promise((resolve, reject) => {
+        login(username, password, code, uuid).then(res => {
+          let data = res.data
+          // 存一份token在cookie中
+          setToken(data.access_token)
+          // 提交给mutations,修改state中的token
+          commit('SET_TOKEN', data.access_token)
+          setExpiresIn(data.expires_in)
+          commit('SET_EXPIRES_IN', data.expires_in)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
+    // 获取用户信息
+    GetInfo({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        getInfo().then(res => {
+          const user = res.data.sysUser
+          const avatar = (user.avatar == "" || user.avatar == null) ? require("@/assets/images/profile2.png") : user.avatar;
+          if (res.data.roles && res.data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+            commit('SET_ROLES', res.data.roles)
+            commit('SET_PERMISSIONS', res.data.permissions)
+          } else {
+            commit('SET_ROLES', ['ROLE_DEFAULT'])
+          }
+          commit('SET_NAME', user.userName)
+          commit('SET_NICK_NAME', user.nickName)
+          commit('SET_USERINFO', {
+            deptId: user.deptId,
+            archiveUserId: user.userId,
+            userName: user.userName,
+            archiveUser: user.nickName,
+          })
+          commit('SET_AVATAR', avatar)
+          resolve(res)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
+    // 刷新token
+    RefreshToken({commit, state}) {
+      return new Promise((resolve, reject) => {
+        refreshToken(state.token).then(res => {
+          setExpiresIn(res.data)
+          commit('SET_EXPIRES_IN', res.data)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
+    // 退出系统
+    LogOut({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        logout(state.token).then(() => {
+          // 清空token，用户信息
+          commit('SET_TOKEN', '')
+          commit('SET_ROLES', [])
+          commit('SET_PERMISSIONS', [])
+          // 删除cookie中的token
+          removeToken()
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
+    // 前端 登出
+    FedLogOut({ commit }) {
+      return new Promise(resolve => {
+        commit('SET_TOKEN', '')
+        removeToken()
+        resolve()
+      })
+    }
+  }
+}
+
+export default user
