@@ -179,7 +179,7 @@ export default {
 			}
 			this.deleteDragImg(true);
 			this.submitabl = false;
-			const that = this
+			const that = this;
 			return new Promise((resolve, reject) => {
 				const reader = new FileReader();
 				reader.readAsDataURL(file);
@@ -201,7 +201,10 @@ export default {
 							width: +img.width,
 							height: +img.height,
 						};
-						console.log('img.onload => that.photoSize', that.photoSize);
+						console.log(
+							"img.onload => that.photoSize",
+							that.photoSize
+						);
 						resolve({
 							width: img.width,
 							height: img.height,
@@ -304,7 +307,7 @@ export default {
 			// this.signOrSeal = '';
 			// this.showSubmit = false;
 			//提交
-			this.loading = true;
+			// this.loading = true;
 			setTimeout(() => {
 				this.$nextTick(() => {
 					this.setSign();
@@ -315,17 +318,30 @@ export default {
 		setSign() {
 			let parentElement =
 				document.querySelector(".pdfViewer").children || [];
+			// console.log(
+			// 	'document.querySelector(".pdfViewer")',
+			// 	document.querySelector(".pdfViewer")
+			// );
+			// console.log(
+			// 	'document.querySelector(".pdfViewer").children',
+			// 	document.querySelector(".pdfViewer").children
+			// );
+			let result = Array.from(parentElement).filter(function (child) {
+				return child.className === "dragImg";
+			});
+			// console.log('result', result);
 			let baseNum = 1263.85;
-			let length = parentElement.length; // 获取pdf页数
+			let length = result.length; // 获取pdf页数
 			let promiseArr = [];
 			// 循环页面
 			for (let i = 0; i < length; i++) {
 				this.$nextTick(() => {
 					// 页面中有样式名为dragImg的,代表该页面有签名或者签章
 					// 有签名或签章就绘制页面
-					if (parentElement[i].className == "dragImg") {
-						const promise = new Promise((resolve, reject) => {
-							let html = parentElement[i];
+					if (result[i].className == "dragImg") {
+						let promise = "";
+						promise = new Promise((resolve, reject) => {
+							let html = result[i];
 							let ele = html.querySelector("#pic");
 							let eleImg = html.querySelector("#pic div");
 							console.log(html, ele, ele.style.top);
@@ -336,9 +352,9 @@ export default {
 								? eleImg.style.top.split("px")[0] - 0
 								: 0;
 							let currentTop = top + topImg;
-							console.log(currentTop, currentTop > baseNum);
-							if (currentTop > baseNum) {
-								console.log("第二个");
+							// console.log(currentTop, currentTop > baseNum);
+							// if (currentTop > baseNum) {
+							// 	console.log("第二个");
 								let j = Math.ceil(currentTop / baseNum);
 								let pageContainer = document.querySelector(
 									".pdfViewer .pageContainer" + j
@@ -347,24 +363,25 @@ export default {
 								ele.style.top = 0;
 								eleImg.style.top =
 									currentTop - baseNum * (j - 1) + "px";
-								console.log(
-									currentTop,
-									top,
-									j,
-									currentTop - baseNum * (j - 1)
-								);
+								// console.log(
+								// 	currentTop,
+								// 	top,
+								// 	j,
+								// 	currentTop - baseNum * (j - 1)
+								// );
 								pageContainer.appendChild(html);
 								promiseArr.push(promise);
 								resolve();
-							} else {
-								console.log("第一个");
-								let pageContainer = document.querySelector(
-									".pdfViewer .pageContainer1"
-								);
-								pageContainer.appendChild(html);
-								promiseArr.push(promise);
-								resolve();
-							}
+							// }
+							// else {
+							// 	console.log("第一个");
+							// 	let pageContainer = document.querySelector(
+							// 		".pdfViewer .pageContainer1"
+							// 	);
+							// 	pageContainer.appendChild(html);
+							// 	promiseArr.push(promise);
+							// 	resolve();
+							// }
 						});
 					}
 				});
